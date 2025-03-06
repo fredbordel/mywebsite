@@ -1,0 +1,18 @@
+{
+  "fr": {
+    "app": {
+      "h1": "Bienvenue"
+    },
+    "home": {
+      "title": "Maison"
+    }
+  },
+  "en": {
+    "app": {
+      "h1": "Welcome"
+    },
+    "home": {
+      "title": "Home"
+    }
+  }
+}
