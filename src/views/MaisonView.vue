@@ -1,5 +1,5 @@
 <template>
-  <h2>Maison View</h2>
+  <h1>Bienvenue</h1>
 </template>
 
 <script setup></script>
