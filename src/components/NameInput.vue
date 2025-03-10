@@ -1,43 +1,71 @@
 <template>
   <div class="name-input">
-    <h3>Quel est ton prénom?</h3>
-    <form>
-      <select v-model="selected">
-        <option v-for="option in options" :value="option.value">
-          {{ option.text }}
-        </option>
-      </select>
-      <label for="name">Prénom </label>
-      <input type="text" name="name" id="name" @keydown="mouaha" required />
-      <button type="button">Soumettre</button>
-    </form>
+    <h3>Tu pourras remplis le champs si le compte est bon</h3>
+    <div
+      class="name-input__radio-group"
+      role="radiogroup"
+      aria-labelledby="name-input__label"
+      id="rg"
+    >
+      <p id="name-input__label">Choisis un nombre</p>
+      <div
+        v-for="(num, index) of nbOptions"
+        :key="num"
+        @click="selectNum(index)"
+        @keyup.space="selectNum(index)"
+        ref="radio-button"
+        role="radio"
+        aria-checked="false"
+        tabindex="0"
+      >
+        {{ num }}
+      </div>
+    </div>
+    <label for="word">Name (4 to 8 characters):</label>
+    <input
+      v-model="inputValue"
+      @keydown="mouaha($event)"
+      type="text"
+      id="word"
+      name="word"
+      disabled
+    />
   </div>
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { defineModel, ref, useTemplateRef } from "vue";
 
-const selected = ref(2);
-const requiredtries = computed(() => selected.value);
+const radioButtons = useTemplateRef("radio-button");
+const nbOptions = ref([5, 32, 15, 8, 20]);
+const checkedButtonValue = ref(0);
+const nbOfTries = ref(0);
 
-const options = ref([
-  { text: "2", value: 2 },
-  { text: "3", value: 3 },
-  { text: "4", value: 4 },
-]);
+const inputValue = defineModel();
 
-let nbOfTries = 0; // need to reset this whenever requiredTries is updated
+function selectNum(i) {
+  nbOfTries.value = 0;
+
+  for (const [index, button] of radioButtons.value.entries()) {
+    if (index === i) {
+      button.setAttribute("aria-checked", true);
+      checkedButtonValue.value = Number(button.innerHTML);
+    } else button.setAttribute("aria-checked", false);
+  }
+}
 
 function mouaha(event) {
   const isLetter = /^[a-zA-Z]$/.test(event.key);
-  nbOfTries++;
+  if (!isLetter) event.preventDefault();
 
-  if (nbOfTries !== requiredtries.value && isLetter) {
+  nbOfTries.value++;
+
+  if (nbOfTries.value !== checkedButtonValue.value) {
     event.preventDefault();
   }
 
-  if (nbOfTries === requiredtries.value) {
-    nbOfTries = 0;
+  if (nbOfTries.value === checkedButtonValue.value) {
+    nbOfTries.value = 0;
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="royaume">
-    <h1>Royaume du mauvais UI</h1>
+    <h1>Royaume des énigmes UI</h1>
     <name-input></name-input>
   </div>
 </template>
