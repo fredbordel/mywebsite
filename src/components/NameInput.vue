@@ -1,16 +1,21 @@
 <template>
   <div class="name-input">
-    <h3>Tu pourras remplis le champs si le compte est bon</h3>
+    <h3 class="name-input__title">
+      Tu pourras remplir le champs si le compte est bon
+    </h3>
     <div
       class="name-input__radio-group"
       role="radiogroup"
-      aria-labelledby="name-input__label"
+      aria-labelledby="radiogroup-label"
       id="rg"
     >
-      <p id="name-input__label">Choisis un nombre</p>
+      <p class="name-input__radio__label" id="radiogroup-label">
+        Choisis un nombre
+      </p>
       <div
         v-for="(num, index) of nbOptions"
         :key="num"
+        class="name-input__radio__option"
         @click="selectNum(index)"
         @keyup.space="selectNum(index)"
         ref="radio-button"
@@ -21,15 +26,15 @@
         {{ num }}
       </div>
     </div>
-    <label for="word">Name (4 to 8 characters):</label>
+    <label for="word">Entre un prénom</label>
     <input
       v-model="inputValue"
-      @keydown="mouaha($event)"
+      @keydown="solveThePuzzle($event)"
       type="text"
       id="word"
       name="word"
-      disabled
     />
+    <button type="button" @click="checkAnswer">Soumettre</button>
   </div>
 </template>
 
@@ -37,7 +42,7 @@
 import { defineModel, ref, useTemplateRef } from "vue";
 
 const radioButtons = useTemplateRef("radio-button");
-const nbOptions = ref([5, 32, 15, 8, 20]);
+const nbOptions = ref([8, 32, 15, 5, 20]);
 const checkedButtonValue = ref(0);
 const nbOfTries = ref(0);
 
@@ -54,13 +59,15 @@ function selectNum(i) {
   }
 }
 
-function mouaha(event) {
-  const isLetter = /^[a-zA-Z]$/.test(event.key);
-  if (!isLetter) event.preventDefault();
+function solveThePuzzle(event) {
+  const isLetterKey = /^[a-zàâçéèêëîïôûùüÿñæœ .-]*$/i.test(event.key);
+  const isDeleteKey = event.key === "Backspace";
 
-  nbOfTries.value++;
+  if (!isLetterKey && !isDeleteKey) event.preventDefault();
 
-  if (nbOfTries.value !== checkedButtonValue.value) {
+  if (!isDeleteKey) nbOfTries.value++;
+
+  if (nbOfTries.value !== checkedButtonValue.value && !isDeleteKey) {
     event.preventDefault();
   }
 
@@ -68,6 +75,19 @@ function mouaha(event) {
     nbOfTries.value = 0;
   }
 }
+
+function checkAnswer() {
+  if (inputValue.value.toLowerCase() === "prénom") console.log("yay");
+}
 </script>
 
-<style></style>
+<style>
+.name-input {
+  .name-input__radio-group {
+    display: flex;
+    .name-input__radio__option {
+      cursor: pointer;
+    }
+  }
+}
+</style>
