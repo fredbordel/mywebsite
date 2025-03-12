@@ -1,12 +1,12 @@
 <template>
   <div class="royaume">
     <h1>Royaume des énigmes UI</h1>
-    <name-input></name-input>
+    <input-puzzle></input-puzzle>
   </div>
 </template>
 
 <script setup>
-import NameInput from "../components/NameInput.vue";
+import InputPuzzle from "../components/InputPuzzle.vue";
 </script>
 
 <style></style>

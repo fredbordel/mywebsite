@@ -1,21 +1,21 @@
 <template>
-  <div class="name-input">
-    <h3 class="name-input__title">
+  <div class="input-puzzle">
+    <h3 class="input-puzzle__title">
       Tu pourras remplir le champs si le compte est bon
     </h3>
     <div
-      class="name-input__radio-group"
+      class="input-puzzle__radio-group"
       role="radiogroup"
       aria-labelledby="radiogroup-label"
       id="rg"
     >
-      <p class="name-input__radio__label" id="radiogroup-label">
+      <p class="input-puzzle__radio__label" id="radiogroup-label">
         Choisis un nombre
       </p>
       <div
         v-for="(num, index) of nbOptions"
         :key="num"
-        class="name-input__radio__option"
+        class="input-puzzle__radio__option"
         @click="selectNum(index)"
         @keyup.space="selectNum(index)"
         ref="radio-button"
@@ -26,7 +26,7 @@
         {{ num }}
       </div>
     </div>
-    <label for="word">Entre un prénom</label>
+    <label for="word">Soumet un prénom</label>
     <input
       v-model="inputValue"
       @keydown="solveThePuzzle($event)"
@@ -39,10 +39,12 @@
 </template>
 
 <script setup>
-import { defineModel, ref, useTemplateRef } from "vue";
+import { ref, useTemplateRef } from "vue";
+import { usePuzzle } from "../stores/puzzle";
 
+const { solvePuzzle } = usePuzzle();
 const radioButtons = useTemplateRef("radio-button");
-const nbOptions = ref([8, 32, 15, 5, 20]);
+const nbOptions = ref([8, 32, 1, 15, 5, 20]);
 const checkedButtonValue = ref(0);
 const nbOfTries = ref(0);
 
@@ -61,13 +63,13 @@ function selectNum(i) {
 
 function solveThePuzzle(event) {
   const isLetterKey = /^[a-zàâçéèêëîïôûùüÿñæœ .-]*$/i.test(event.key);
-  const isDeleteKey = event.key === "Backspace";
+  const isDeleteOrSpaceKey = event.key === "Backspace" || event.key === " ";
 
-  if (!isLetterKey && !isDeleteKey) event.preventDefault();
+  if (!isLetterKey && !isDeleteOrSpaceKey) event.preventDefault();
 
-  if (!isDeleteKey) nbOfTries.value++;
+  if (!isDeleteOrSpaceKey) nbOfTries.value++;
 
-  if (nbOfTries.value !== checkedButtonValue.value && !isDeleteKey) {
+  if (nbOfTries.value !== checkedButtonValue.value && !isDeleteOrSpaceKey) {
     event.preventDefault();
   }
 
@@ -77,15 +79,31 @@ function solveThePuzzle(event) {
 }
 
 function checkAnswer() {
-  if (inputValue.value.toLowerCase() === "prénom") console.log("yay");
+  if (inputValue.value.toLowerCase() === "un prénom") {
+    // celebration animation
+    console.log("puzzle solved");
+    solvePuzzle();
+  } else {
+    // error handling
+  }
 }
 </script>
 
 <style>
-.name-input {
-  .name-input__radio-group {
+.input-puzzle {
+  .input-puzzle__radio-group {
     display: flex;
-    .name-input__radio__option {
+    align-items: center;
+    gap: 16px;
+
+    .input-puzzle__radio__option {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      font-family: "Pixelify Sans", "Times New Roman", Times, serif;
+      font-size: 32px;
       cursor: pointer;
     }
   }
