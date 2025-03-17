@@ -1,6 +1,6 @@
 <template>
   <div class="royaume">
-    <h1>Royaume des énigmes UI</h1>
+    <h1>Royaume du UX maudit</h1>
     <input-puzzle></input-puzzle>
   </div>
 </template>
@@ -9,4 +9,11 @@
 import InputPuzzle from "../components/InputPuzzle.vue";
 </script>
 
-<style></style>
+<style>
+.royaume {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+</style>

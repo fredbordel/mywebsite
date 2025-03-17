@@ -21,12 +21,27 @@ const { selectedLang } = useLang();
 </script>
 
 <style>
+@font-face {
+  font-family: "Nortnoh";
+  src: url("./assets/fonts/Nortnoh-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Gothica";
+  src: url("./assets/fonts/gothica.book-oblique.ttf");
+}
+
+body {
+  margin: 0;
+}
+
 h1 {
-  font-family: "Pixelify Sans", "Times New Roman", Times, serif;
-  font-size: 24px;
+  font-family: "Nortnoh", "Times New Roman", Times, serif;
+  letter-spacing: 4px;
+  font-size: 32px;
 
   @media screen and (min-width: 600px) {
-    font-size: 32px;
+    font-size: 48px;
   }
 }
 
@@ -36,7 +51,7 @@ h1 {
   align-items: center;
 
   .app__title {
-    font-family: "Pixelify Sans", "Times New Roman", Times, serif;
+    font-family: "Nortnoh", "Times New Roman", Times, serif;
   }
 
   .app__nav {
