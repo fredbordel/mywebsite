@@ -54,6 +54,9 @@ h1 {
     font-family: "Nortnoh", "Times New Roman", Times, serif;
   }
 
+  .app__title {
+  }
+
   .app__nav {
     display: flex;
     gap: 16px;
