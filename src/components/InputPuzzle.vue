@@ -1,43 +1,47 @@
 <template>
   <div class="input-puzzle">
-    <h3 class="input-puzzle__title">
-      Un prénom est tout ce qu'il me faut. <br />
-      Si le compte est bon, tu pourras soumettre...
-    </h3>
+    <div class="input-puzzle__wrapper">
+      <h3 class="input-puzzle__title">
+        Un prénom est tout ce qu'il me faut. <br />
+        Si le compte est bon, tu pourras soumettre...
+      </h3>
 
-    <label for="radio-group">Choisit un nombre</label>
-    <div
-      id="radio-group"
-      role="radiogroup"
-      class="input-puzzle__radio-group"
-      aria-labelledby="radiogroup-label"
-    >
-      <div
-        v-for="(num, index) of nbOptions"
-        :key="num"
-        class="input-puzzle__radio__option"
-      >
-        <input
-          type="radio"
-          :id="index"
-          :value="num"
-          v-model="numSelected"
-          :aria-checked="numSelected === num ? true : false"
-        />
-        <label :for="index">{{ num }}</label>
+      <div class="input-puzzle__number">
+        <label for="radio-group">Choisit un nombre</label>
+        <div
+          id="radio-group"
+          role="radiogroup"
+          class="input-puzzle__radio-group"
+          aria-labelledby="radiogroup-label"
+        >
+          <div
+            v-for="(num, index) of nbOptions"
+            :key="num"
+            class="input-puzzle__radio__option"
+          >
+            <input
+              type="radio"
+              :id="index"
+              :value="num"
+              v-model="numSelected"
+              :aria-checked="numSelected === num ? true : false"
+            />
+            <label :for="index">{{ num }}</label>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="input-puzzle__answer">
-      <label for="answer">Réponse</label>
-      <input
-        v-model="inputValue"
-        @keydown="solveThePuzzle($event)"
-        type="text"
-        id="answer"
-        name="answer"
-      />
-      <button type="button" @click="checkAnswer">Soumettre</button>
+      <div class="input-puzzle__answer">
+        <label for="answer">Réponse</label>
+        <input
+          v-model="inputValue"
+          @keydown="solveThePuzzle($event)"
+          type="text"
+          id="answer"
+          name="answer"
+        />
+        <button type="button" @click="checkAnswer">Soumettre</button>
+      </div>
     </div>
   </div>
 </template>
@@ -97,30 +101,44 @@ function checkAnswer() {
 <style>
 .input-puzzle {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
+  background-image: url("../assets/img/stone_wall_1.jpeg");
+  color: white;
   font-family: "Gothica", "Times New Roman", Times, serif;
+
+  .input-puzzle__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #08012589;
+    border: 6px solid #080125;
+    padding: 24px;
+  }
 
   .input-puzzle__title {
     letter-spacing: 4px;
     text-align: center;
+    padding: 16px;
+    font-size: 32px;
   }
 
   .input-puzzle__radio-group {
     display: flex;
-    flex-direction: column;
-    align-items: left;
+    align-items: center;
     gap: 8px;
 
     .input-puzzle__radio__option {
       padding: 4px;
       letter-spacing: 4px;
       font-size: 20px;
-      cursor: pointer;
       caret-color: transparent;
 
       label {
-        padding: 8px;
+        padding: 16px;
+        cursor: pointer;
       }
 
       input {
@@ -130,9 +148,15 @@ function checkAnswer() {
 
     .input-puzzle__radio__option:has(input[aria-checked="true"]) {
       label {
-        color: white;
-        background-color: black;
-        border-radius: 3px;
+        position: relative;
+        background-image: url(../assets/img/little_fire.png);
+        background-position: top;
+        background-size: contain;
+        background-repeat: no-repeat;
+        font-size: 48px;
+        padding: 32px;
+        padding-bottom: 0;
+        overflow: hidden;
       }
     }
   }
@@ -146,11 +170,15 @@ function checkAnswer() {
     button {
       width: 100%;
       padding: 8px 12px;
+      border: none;
+      box-shadow: 1px 2px 15px 0px #000000;
       border-radius: 24px;
-      background-color: #ff9a4c;
-      color: black;
-      outline: 2px solid #ad0000;
-      border: 4px solid #e9f519;
+      background: radial-gradient(
+        circle,
+        rgba(255, 246, 0, 1) 0%,
+        rgba(255, 169, 0, 1) 50%,
+        rgba(255, 16, 16, 1) 100%
+      );
       font-family: "Gothica", "Times New Roman", Times, serif;
       font-size: 24px;
       cursor: pointer;
@@ -158,14 +186,18 @@ function checkAnswer() {
       &:focus,
       &:hover {
         color: white;
-        background-color: #ad0000;
-        border-color: #ff9a4c;
-        outline-color: #e9f519;
+        background: radial-gradient(
+          circle,
+          rgb(123 120 27) 0%,
+          rgb(162 113 18) 50%,
+          rgba(130, 37, 11, 1) 100%
+        );
       }
 
       &:focus-visible {
         outline: 2px solid blue;
         outline-offset: 4px;
+        box-shadow: none;
       }
     }
   }
