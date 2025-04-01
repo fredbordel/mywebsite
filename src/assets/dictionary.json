@@ -5,6 +5,11 @@
     },
     "home": {
       "title": "Maison"
+    },
+    "inputPuzzle": {
+      "title": "Un prénom est tout ce qu'il me faut. Si le compte est bon, tu pourras soumettre...",
+      "label": "Réponse",
+      "button": "Soumettre"
     }
   },
   "en": {
@@ -13,6 +18,11 @@
     },
     "home": {
       "title": "Home"
+    },
+    "inputPuzzle": {
+      "title": "Hello english title",
+      "label": "Hello english label",
+      "button": "Hello english button"
     }
   }
 }

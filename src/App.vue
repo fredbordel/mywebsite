@@ -3,8 +3,9 @@
     <div class="app__wrapper">
       <p class="app__title">Fred Bordel</p>
       <nav class="app__nav">
-        <RouterLink to="/">{{ dict[selectedLang].home.title }}</RouterLink>
+        <RouterLink to="/">Maison</RouterLink>
         <RouterLink to="/bordel">Royaume</RouterLink>
+        <lang-menu></lang-menu>
       </nav>
     </div>
   </header>
@@ -14,10 +15,6 @@
 
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import { useLang } from "./stores/lang";
-import dict from "./assets/dictionary.json";
-
-const { selectedLang } = useLang();
 </script>
 
 <style>

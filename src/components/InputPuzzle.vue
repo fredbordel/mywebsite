@@ -2,12 +2,10 @@
   <div class="input-puzzle">
     <div class="input-puzzle__wrapper">
       <h3 class="input-puzzle__title">
-        Un prénom est tout ce qu'il me faut. <br />
-        Si le compte est bon, tu pourras soumettre...
+        {{ dict.title }}
       </h3>
 
       <div class="input-puzzle__number">
-        <label for="radio-group">Choisit un nombre</label>
         <div
           id="radio-group"
           role="radiogroup"
@@ -32,15 +30,17 @@
       </div>
 
       <div class="input-puzzle__answer">
-        <label for="answer">Réponse</label>
-        <input
-          v-model="inputValue"
-          @keydown="solveThePuzzle($event)"
-          type="text"
-          id="answer"
-          name="answer"
-        />
-        <button type="button" @click="checkAnswer">Soumettre</button>
+        <div>
+          <label for="answer">{{ dict.label }}</label>
+          <input
+            v-model="inputValue"
+            @keydown="solveThePuzzle($event)"
+            type="text"
+            id="answer"
+            name="answer"
+          />
+        </div>
+        <button type="button" @click="checkAnswer">{{ dict.button }}</button>
       </div>
     </div>
   </div>
@@ -48,33 +48,28 @@
 
 <script setup>
 import { ref, useTemplateRef } from "vue";
+import { storeToRefs } from "pinia";
 import { usePuzzle } from "../stores/puzzle";
+import { useLang } from "../stores/lang";
 
 const { solvePuzzle } = usePuzzle();
-const radioButtons = useTemplateRef("radio-button");
+const { setDictionary } = useLang();
+const lang = useLang();
+const { dictionary } = storeToRefs(lang);
+console.log(dictionary.value["inputPuzzle"]);
+
+const dict = setDictionary("inputPuzzle");
 const nbOptions = ref([8, 32, 3, 15, 5, 20]);
 const nbOfTries = ref(0);
 const numSelected = ref(null);
-
-const inputValue = defineModel();
-
-function selectNum(i) {
-  nbOfTries.value = 0;
-
-  for (const [index, button] of radioButtons.value.entries()) {
-    if (index === i) {
-      button.setAttribute("aria-checked", true);
-      numSelected.value = Number(button.innerHTML);
-    } else button.setAttribute("aria-checked", false);
-  }
-}
+const inputValue = ref(null);
 
 function solveThePuzzle(event) {
   const isLetterKey = /^[a-zàâçéèêëîïôûùüÿñæœ .-]*$/i.test(event.key);
   const isDeleteOrSpaceKeyOrTab =
     event.key === "Backspace" || event.key === " " || event.key === "Tab";
 
-  if (!isLetterKey && !isDeleteOrSpaceKey) event.preventDefault();
+  if (!isLetterKey && !isDeleteOrSpaceKeyOrTab) event.preventDefault();
 
   if (!isDeleteOrSpaceKeyOrTab) nbOfTries.value++;
 
@@ -88,7 +83,7 @@ function solveThePuzzle(event) {
 }
 
 function checkAnswer() {
-  if (inputValue.value.toLowerCase() === "un prénom") {
+  if (inputValue.value.toLowerCase() === "prénom") {
     // celebration animation
     console.log("puzzle solved");
     solvePuzzle();
@@ -112,6 +107,7 @@ function checkAnswer() {
   .input-puzzle__wrapper {
     display: flex;
     flex-direction: column;
+    gap: 32px;
     align-items: center;
     background: #08012589;
     border: 6px solid #080125;
@@ -120,8 +116,8 @@ function checkAnswer() {
 
   .input-puzzle__title {
     letter-spacing: 4px;
+    margin: 0;
     text-align: center;
-    padding: 16px;
     font-size: 32px;
   }
 
@@ -133,10 +129,11 @@ function checkAnswer() {
     .input-puzzle__radio__option {
       padding: 4px;
       letter-spacing: 4px;
-      font-size: 20px;
+      font-size: 24px;
       caret-color: transparent;
 
       label {
+        font-size: 32px;
         padding: 16px;
         cursor: pointer;
       }
@@ -153,8 +150,6 @@ function checkAnswer() {
         background-position: top;
         background-size: contain;
         background-repeat: no-repeat;
-        font-size: 48px;
-        padding: 32px;
         padding-bottom: 0;
         overflow: hidden;
       }
@@ -163,9 +158,23 @@ function checkAnswer() {
 
   .input-puzzle__answer {
     display: flex;
-    flex-direction: column;
-    align-items: start;
+    align-items: end;
     gap: 8px;
+
+    input {
+      height: 32px;
+      box-shadow: 1px 2px 15px 0px #0b0227;
+      border: 2px solid #ffdd02;
+      outline: 1px solid #ff3813;
+      margin-right: 32px;
+      margin-top: 4px;
+
+      &:focus-visible {
+        outline: 2px solid blue;
+        outline-offset: 2px;
+        box-shadow: none;
+      }
+    }
 
     button {
       width: 100%;
