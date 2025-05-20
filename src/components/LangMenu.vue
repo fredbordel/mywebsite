@@ -1,6 +1,11 @@
 <template>
   <div>
-    <select name="lang" id="lang" v-model="langSelected">
+    <select
+      name="lang"
+      id="lang"
+      v-model="langStore.selectedLang"
+      @change="langStore.setLanguage(langStore.selectedLang)"
+    >
       <option value="fr">fr</option>
       <option value="en">en</option>
     </select>
@@ -8,15 +13,9 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
-import { useLang } from "../stores/lang";
+import { useLangStore } from "../stores/lang";
 
-const { switchLang } = useLang();
-const langSelected = ref("fr");
-
-watch(langSelected, (newL) => {
-  switchLang(newL);
-});
+const langStore = useLangStore();
 </script>
 
 <style></style>

@@ -2,7 +2,7 @@
   <div class="input-puzzle">
     <div class="input-puzzle__wrapper">
       <h3 class="input-puzzle__title">
-        {{ dict.title }}
+        {{ langStore.dictionary.inputPuzzle.title }}
       </h3>
 
       <div class="input-puzzle__number">
@@ -31,40 +31,42 @@
 
       <div class="input-puzzle__answer">
         <div>
-          <label for="answer">{{ dict.label }}</label>
+          {{ langStore.dictionary.inputPuzzle.label }}
           <input
             v-model="inputValue"
-            @keydown="solveThePuzzle($event)"
+            @keydown="managePuzzleLogic($event)"
             type="text"
             id="answer"
             name="answer"
           />
         </div>
-        <button type="button" @click="checkAnswer">{{ dict.button }}</button>
+        <button type="button" @click="checkAnswer">
+          {{ langStore.dictionary.inputPuzzle.button }}
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, useTemplateRef } from "vue";
-import { storeToRefs } from "pinia";
-import { usePuzzle } from "../stores/puzzle";
-import { useLang } from "../stores/lang";
+import { ref } from "vue";
+import { useLangStore } from "../stores/lang";
+import { usePuzzleStore } from "../stores/puzzle";
 
-const { solvePuzzle } = usePuzzle();
-const { setDictionary } = useLang();
-const lang = useLang();
-const { dictionary } = storeToRefs(lang);
-console.log(dictionary.value["inputPuzzle"]);
+const langStore = useLangStore();
+const { solvePuzzle } = usePuzzleStore();
 
-const dict = setDictionary("inputPuzzle");
 const nbOptions = ref([8, 32, 3, 15, 5, 20]);
 const nbOfTries = ref(0);
 const numSelected = ref(null);
 const inputValue = ref(null);
 
-function solveThePuzzle(event) {
+function managePuzzleLogic(event) {
+  if (!numSelected.value) {
+    event.preventDefault();
+    return;
+  }
+
   const isLetterKey = /^[a-zàâçéèêëîïôûùüÿñæœ .-]*$/i.test(event.key);
   const isDeleteOrSpaceKeyOrTab =
     event.key === "Backspace" || event.key === " " || event.key === "Tab";

@@ -1,12 +1,14 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
-export const usePuzzle = defineStore("puzzle", () => {
+export const usePuzzleStore = defineStore("puzzle", () => {
   const puzzleSolved = ref(0);
+
+  const puzzleQuest = computed(() => puzzleSolved.value);
 
   function solvePuzzle() {
     puzzleSolved.value += 1;
   }
 
-  return { puzzleSolved, solvePuzzle };
+  return { puzzleSolved, solvePuzzle, puzzleQuest };
 });

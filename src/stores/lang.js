@@ -1,21 +1,29 @@
+import { computed, ref, watch } from "vue";
 import { defineStore } from "pinia";
 import dict from "../assets/dictionary.json";
-import { computed, ref } from "vue";
 
-export const useLang = defineStore("lang", () => {
+export const useLangStore = defineStore("lang", () => {
   const selectedLang = ref("fr");
+
   const dictionary = computed(() => {
-    return (key) => dict[selectedLang.value][key];
+    return dict[selectedLang.value] || dict.en;
   });
 
-  function switchLang(lang) {
-    selectedLang.value = lang;
+  function setLanguage(lang) {
+    if (dict[lang]) {
+      selectedLang.value = lang;
+    } else {
+      console.warn(`Language '${lang}' is not supported.`);
+    }
   }
 
-  function setDictionary(key = null) {
-    if (!key) return;
-    else return dict[selectedLang.value][key];
-  }
+  watch(selectedLang, (newLang) => {
+    console.log(`Lang changed to: ${newLang}`);
+  });
 
-  return { dictionary, selectedLang, setDictionary, switchLang };
+  return {
+    selectedLang,
+    dictionary,
+    setLanguage,
+  };
 });

@@ -10,8 +10,8 @@ const router = createRouter({
       component: MaisonView,
     },
     {
-      path: "/bordel",
-      name: "bordel",
+      path: "/royaume",
+      name: "royaume",
       component: () => import("../views/RoyaumeView.vue"),
     },
   ],

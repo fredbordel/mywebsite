@@ -4,7 +4,7 @@
       <p class="app__title">Fred Bordel</p>
       <nav class="app__nav">
         <RouterLink to="/">Maison</RouterLink>
-        <RouterLink to="/bordel">Royaume</RouterLink>
+        <RouterLink to="/royaume">Royaume</RouterLink>
         <lang-menu></lang-menu>
       </nav>
     </div>
