@@ -4,17 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Accueil</title>
-    <script src="scripts.js"></script>
-    <link rel="stylesheet" href="homepage.css" />
+    <script src="js/scripts.js"></script>
+    <link rel="stylesheet" href="css/homepage.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amarante&family=Be+Vietnam+Pro:wght@200&family=Jacquard+12&family=Jost:wght@500&family=Pixelify+Sans:wght@400..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Syne+Mono&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <button onclick="activateArrows();">Button</button>
-    <div id="monster"></div>
-    <div class="homepage-navigation">
-      <h1>FredBordel</h1>
-      <a href="./projects.html">Projets</a>
-      <a href="./articles.html">Articles</a>
-      <a href="./contact.html">Contact</a>
+  <body id="site" class="horror">
+    <header class="homepage-navigation">
+      <nav>
+        <ul>
+          <li><a href="pages/projects.html">Projets</a></li>
+          <li>
+            <a href="pages/articles.html">Articles</a>
+          </li>
+          <li>
+            <a href="pages/about.html">À Propos</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <div class="homepage-content">
+      <h1 class="homepage-content__title">FredBordel</h1>
+      <p class="homepage-content__subtitle">web dev amicale :)</p>
+      <div class="homepage-content__infos">
+        <button onclick="toggleGenre('horror')">Horror</button>
+        <button onclick="toggleGenre('scifi')">SciFi</button>
+        <button onclick="toggleGenre('romcom')">RomCom</button>
+      </div>
     </div>
   </body>
 </html>

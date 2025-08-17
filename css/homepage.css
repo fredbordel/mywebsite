@@ -1,0 +1,125 @@
+@font-face {
+  font-family: Corpsy;
+  src: url("../assets/fonts/corpsy_regular.ttf");
+}
+
+@font-face {
+  font-family: Corpsy;
+  font-weight: normal;
+  src: url("../assets/fonts/corpsy_regular.ttf");
+}
+
+@font-face {
+  font-family: Love;
+  src: url("../assets/fonts//story-of-love.regular.ttf");
+}
+
+@font-face {
+  font-family: Love;
+  font-weight: normal;
+  src: url("../assets/fonts/story-of-love.regular.ttf");
+}
+
+body {
+  &.horror {
+    background-color: black;
+    color: rgb(186, 192, 173);
+
+    .homepage-navigation nav ul a {
+      color: rgb(186, 192, 173);
+    }
+
+    .homepage-content .homepage-content__title {
+      font-family: "Corpsy";
+      font-size: 160px;
+    }
+
+    .homepage-content__subtitle {
+      font-family: "Corpsy";
+      font-size: 48px;
+      margin-top: -120px;
+    }
+  }
+
+  &.scifi {
+    background-color: #4e7988;
+  }
+
+  &.romcom {
+    background-color: #fe76f2;
+    color: rgb(97, 44, 118);
+
+    .homepage-navigation nav ul a {
+      color: rgb(97, 44, 118);
+    }
+
+    .homepage-content .homepage-content__title {
+      font-family: "Love";
+      font-size: 120px;
+    }
+
+    .homepage-content__subtitle {
+      font-family: "Love";
+      font-size: 40px;
+      margin-top: -80px;
+    }
+  }
+}
+
+.homepage-navigation {
+  max-width: 500px;
+  margin: auto;
+
+  nav ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 48px;
+    list-style-type: none;
+
+    @media (max-width: 600px) {
+      padding: 8px 16px;
+    }
+
+    a {
+      font-family: "Syne Mono", monospace;
+      font-weight: 400;
+      font-size: 24px;
+      text-decoration: none;
+      font-weight: 700;
+
+      @media (max-width: 600px) {
+        font-size: 20px;
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    width: 100%;
+    max-width: inherit;
+  }
+}
+
+.homepage-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px;
+  margin: auto;
+
+  .homepage-content__title {
+    transform: rotate(-10deg);
+
+    @media (max-width: 600px) {
+      font-size: 100px;
+    }
+  }
+
+  .homepage-content__subtitle {
+    transform: rotate(-10deg);
+  }
+
+  .homepage-content__infos {
+  }
+}
