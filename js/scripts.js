@@ -1,4 +1,3 @@
-function toggleGenre(genre) {
-  document.getElementById("site").removeAttribute("class");
-  document.getElementById("site").classList.add(genre);
+function hello() {
+  console.log(document.getElementsByClassName("header__nav__pointer")[0]);
 }

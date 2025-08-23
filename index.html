@@ -6,35 +6,32 @@
     <title>Accueil</title>
     <script src="js/scripts.js"></script>
     <link rel="stylesheet" href="css/homepage.css" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Amarante&family=Be+Vietnam+Pro:wght@200&family=Jacquard+12&family=Jost:wght@500&family=Pixelify+Sans:wght@400..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Syne+Mono&display=swap"
-      rel="stylesheet"
-    />
   </head>
-  <body id="site" class="horror">
-    <header class="homepage-navigation">
-      <nav>
-        <ul>
-          <li><a href="pages/projects.html">Projets</a></li>
-          <li>
-            <a href="pages/articles.html">Articles</a>
-          </li>
-          <li>
-            <a href="pages/about.html">À Propos</a>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <div class="homepage-content">
-      <h1 class="homepage-content__title">FredBordel</h1>
-      <p class="homepage-content__subtitle">web dev amicale :)</p>
-      <div class="homepage-content__infos">
-        <button onclick="toggleGenre('horror')">Horror</button>
-        <button onclick="toggleGenre('scifi')">SciFi</button>
-        <button onclick="toggleGenre('romcom')">RomCom</button>
+  <body id="site">
+    <div class="old-tv">
+      <div class="old-tv__screen">
+        <div class="old-tv__screen__inner">
+          <h1>Fredbordel</h1>
+        </div>
+      </div>
+      <div class="old-tv__panel">
+        <div class="old-tv__panel__inner">
+          <header class="panel__inner__header">
+            <nav class="header__nav">
+              <div class="header__nav__pointer"></div>
+              <button class="header__nav__button" onclick="hello()"></button>
+              <ul class="header__nav__ul">
+                <li class="nav__ul__li about"><a href="/about">À Propos</a></li>
+                <li class="nav__ul__li articles">
+                  <a href="/articles">Articles</a>
+                </li>
+                <li class="nav__ul__li projects">
+                  <a href="/projects">Projets</a>
+                </li>
+              </ul>
+            </nav>
+          </header>
+        </div>
       </div>
     </div>
   </body>
